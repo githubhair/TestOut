@@ -1,13 +1,14 @@
-package secure_the_site_page;
+package ssl;
 
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SettingsPage extends BasePage {
+public class SettingSSLPage extends BasePage {
     By mailContactsCalendarsLink = new By.ById("siMailContactsCalendars.Grid.tbText");
     By maggieSubPageLink = new By.ById("lbAccounts.Grid.Border.ScrollViewer.Grid.Viewport.ScrollContentPresenter.OuterElement.InnerElement.ItemsPresenter.StackPanel.SettingsItemSubMenu.Grid.ContentPresenter.StackPanel.TextBlock");
     By selectEmailLink = new By.ById("siAccount.Grid.tbStateText");
@@ -16,17 +17,19 @@ public class SettingsPage extends BasePage {
     By turnSSLButtonOn = new By.ById("siUseSSL.Grid.tbOnOff.Grid.SwitchRoot");
     By accountLink = new By.ById("btnAccount.grid.contentPresenter.TextBlock");
     By doneLink = new By.ById("btnDone.grid.contentPresenter.TextBlock");
+    WebDriverWait wait = new WebDriverWait(driver, 10);
 
-    public SettingsPage(WebDriver driver) throws InterruptedException {
+
+    public SettingSSLPage(WebDriver driver) throws InterruptedException {
         super(driver);
         driver.findElement(mailContactsCalendarsLink).click();
         //sub screen
-        driver.findElement(maggieSubPageLink).click();
-        driver.findElement(selectEmailLink).click();
-        driver.findElement(accountAdvancedLink).click();
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(maggieSubPageLink)));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(selectEmailLink)));
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(accountAdvancedLink)));
         Actions actions = new Actions(driver);
-        WebElement sourceLocator = driver.findElement(turnSSLButtonOn);
-        actions.moveToElement(sourceLocator, 10,0).click().build().perform();
+        WebElement sslButton = driver.findElement(turnSSLButtonOn);
+        actions.moveToElement(sslButton, 10,0).click().build().perform();
         driver.findElement(accountLink).click();
         Thread.sleep(1000);
         driver.findElement(doneLink).click();
