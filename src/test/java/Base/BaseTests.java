@@ -1,16 +1,16 @@
 package Base;
 
-import home.HomePage;
-import org.openqa.selenium.Dimension;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 public class BaseTests {
 
     protected WebDriver driver;
-@Test
+@BeforeTest
     public void baseSetup() throws InterruptedException {
 
     System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
@@ -18,14 +18,19 @@ public class BaseTests {
     driver.get("http://testoutlivecontent.blob.core.windows.net/netpro2018v5-en-us/en-us/sims/typescriptv1/netpro2018v5/simstartup_webpack.html?package=netpro2018v5windowspackage&sim=ipademail_np5&dev=true&automation=true");
     //System.out.println(driver.getTitle());
     //driver.manage().window().setSize(new Dimension(925, 950));
-    //driver.manage().window().maximize();
+    driver.manage().window().fullscreen();
+
+    Thread.sleep(5000);
 
     HomePage homepage = new HomePage(driver);
-    homepage.clickSettingsLink();
+    homepage.changeSize();
+}
+//    @AfterTest
+//    public void tearDown(){
+//    driver.close();
 
 
 
-    }
 }
 
 //        homePage = new HomePage(driver);

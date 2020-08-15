@@ -1,12 +1,9 @@
-package home;
+package pages;
 
-import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import ssl.SettingSSLPage;
-import wifi.WiFiPage;
 
 public class HomePage extends BasePage {
     By screenSizeDial = By.id("HorizontalThumb");
@@ -25,6 +22,7 @@ public class HomePage extends BasePage {
     }
 
     public SettingSSLPage clickSettingsLink() throws InterruptedException {
+        Thread.sleep(1000);
         driver.findElement(settingLink).click();
         return new SettingSSLPage(driver);
     }
